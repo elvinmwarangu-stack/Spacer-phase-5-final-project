@@ -45,46 +45,46 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   };
 
-//   const resetForm = () => {
-//     setFormData({ name: '', email: '', password: '', role: 'client' });
-//   };
+  const resetForm = () => {
+    setFormData({ name: '', email: '', password: '', role: 'client' });
+  };
 
-//   const toggleMode = () => {
-//     setIsLogin(!isLogin);
-//     resetForm();
-//   };
+  const toggleMode = () => {
+    setIsLogin(!isLogin);
+    resetForm();
+  };
 
-//   if (!isOpen) return null;
+  if (!isOpen) return null;
 
-//   return (
-//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-//       <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-//         <div className="flex justify-between items-center mb-4">
-//           <h2 className="text-xl font-semibold">
-//             {isLogin ? 'Login' : 'Sign Up'}
-//           </h2>
-//           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-//             <FiX size={24} />
-//           </button>
-//         </div>
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">
+            {isLogin ? 'Login' : 'Sign Up'}
+          </h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <FiX size={24} />
+          </button>
+        </div>
 
-//         <form onSubmit={handleSubmit} className="space-y-4">
-//           {!isLogin && (
-//             <div>
-//               <label className="block text-sm font-medium mb-1">Name</label>
-//               <div className="relative">
-//                 <FiUser className="absolute left-3 top-3 text-gray-400" />
-//                 <input
-//                   type="text"
-//                   value={formData.name}
-//                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-//                   className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-//                   placeholder="Your name"
-//                   required
-//                 />
-//               </div>
-//             </div>
-//           )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {!isLogin && (
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <div className="relative">
+                <FiUser className="absolute left-3 top-3 text-gray-400" />
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+            </div>
+          )}
 
 //           <div>
 //             <label className="block text-sm font-medium mb-1">Email</label>
