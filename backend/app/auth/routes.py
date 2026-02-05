@@ -32,3 +32,14 @@ def register(
         email=data.email,
         password=data.password
     )
+
+@router.post("/login", response_model=TokenResponse)
+def login(
+    data: LoginRequest,
+    db: Session = Depends(get_db)
+):
+    return authenticate_user(
+        db=db,
+        email=data.email,
+        password=data.password
+    )
