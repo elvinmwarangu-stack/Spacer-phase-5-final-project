@@ -260,6 +260,21 @@ const initialState = {
   loading: false,
   error: null,
 };
+const spacesSlice = createSlice({
+  name: 'spaces',
+  initialState,
+  reducers: {
+    // Add new space (Admin)
+    addSpace: (state, action) => {
+      const newSpace = {
+        id: Math.max(...state.spaces.map(s => s.id)) + 1,
+        ...action.payload,
+        reviews: 0,
+        rating: 0,
+        available: true,
+      };
+      state.spaces.push(newSpace);
+
 
 
 
