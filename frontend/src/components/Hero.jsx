@@ -1,34 +1,57 @@
-// import React from 'react'
 
-// export default function Hero() {
-//   return (
-//     <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
-//       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
-//         <div className="flex-1">
-//           <nav className="hidden" />
-//           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Find Your Perfect
-//             <span className="text-yellow-300"> Workspace</span>
-//             <div className="text-2xl mt-2">in Kenya</div>
-//           </h1>
-//           <p className="mt-6 text-lg max-w-xl">Book unique spaces for meetings, creative work, and celebrations. From coworking spaces to conference centers across Nairobi.</p>
+import { FiArrowRight } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-//           <div className="mt-8 flex flex-wrap gap-3">
-//             <a href="#browse" className="bg-white text-indigo-700 px-5 py-3 rounded shadow font-semibold">Browse Spaces</a>
-//             <a href="#list" className="border border-white px-5 py-3 rounded">List your space</a>
-//           </div>
+const Hero = ({ onGetStartedClick }) => {
+  const { isAuthenticated, user } = useSelector(state => state.auth);
+  const navigate = useNavigate();
 
-//           <div className="mt-8 flex gap-4">
-//             <button className="py-2 px-4 bg-white/20 rounded">I'm a Client</button>
-//             <button className="py-2 px-4 bg-white/10 rounded">I'm a Space Owner</button>
-//           </div>
-//         </div>
+  const handleClientDashboard = () => {
+    if (isAuthenticated && user?.role === 'client') {
+      navigate('/client-dashboard');
+    } else {
+      onGetStartedClick();
+    }
+  };
 
-//         <div className="flex-1">
-//           <div className="w-full h-56 md:h-80 bg-white/10 rounded-lg flex items-center justify-center">
-//             <div className="text-white/80">[Hero image placeholder]</div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   )
-// }
+  const handleAdminDashboard = () => {
+    if (isAuthenticated && user?.role === 'admin') {
+      navigate('/admin-dashboard');
+    } else {
+      onGetStartedClick();
+    }
+  };
+  return (
+    <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Find Your Perfect
+            <span className="block text-yellow-300">Workspace</span>
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            Discover and book premium workspaces, meeting rooms, and event spaces 
+            in your city. Work smarter, not harder.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={handleClientDashboard}
+              className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 flex items-center justify-center"
+            >
+              Browse as Client <FiArrowRight className="ml-2" />
+            </button>
+            <button 
+              onClick={handleAdminDashboard}
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900"
+            >
+              Admin Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

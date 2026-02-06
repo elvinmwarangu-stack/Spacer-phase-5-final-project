@@ -1,23 +1,30 @@
-// import React from 'react'
 
-// export default function StatsCounter(){
-//   const stats = [
-//     {label: 'Available Spaces', value: '500+'},
-//     {label: 'Happy Clients', value: '10,000+'},
-//     {label: 'Cities in Kenya', value: '15+'},
-//     {label: 'Customer Support', value: '24/7'},
-//   ]
+import { useState, useEffect } from 'react';
 
-//   return (
-//     <section className="py-12 bg-white">
-//       <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-//         {stats.map((s) => (
-//           <div key={s.label} className="p-6">
-//             <div className="text-3xl font-bold">{s.value}</div>
-//             <div className="text-gray-500">{s.label}</div>
-//           </div>
-//         ))}
-//       </div>
-//     </section>
-//   )
-// }
+const StatsCounter = ({ end, label, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime;
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * end));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [end, duration]);
+
+  return (
+    <div className="text-center">
+      <div className="text-4xl font-bold text-blue-600 mb-2">{count}+</div>
+      <div className="text-gray-600">{label}</div>
+    </div>
+  );
+};
+
+export default StatsCounter;

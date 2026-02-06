@@ -1,18 +1,32 @@
-// import React from 'react'
 
-// export default function CTASection(){
-//   return (
-//     <section className="bg-indigo-700 text-white py-12">
-//       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-//         <div>
-//           <h3 className="text-2xl font-bold">Ready to Find Your Space?</h3>
-//           <p className="text-white/90">Join thousands of businesses and individuals booking spaces on Spacer</p>
-//         </div>
-//         <div className="flex gap-3">
-//           <a className="bg-white text-indigo-700 px-4 py-2 rounded font-semibold" href="#browse">Browse as Client</a>
-//           <a className="border border-white px-4 py-2 rounded" href="#list">List Your Space</a>
-//         </div>
-//       </div>
-//     </section>
-//   )
-// }
+import { FiArrowRight } from 'react-icons/fi';
+
+const CTASection = ({ onGetStartedClick }) => {
+  return (
+    <section className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          Ready to Transform Your Work Experience?
+        </h2>
+        <p className="text-xl mb-8 max-w-2xl mx-auto">
+          Join thousands of professionals who have found their perfect workspace. 
+          Start your journey today.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onClick={onGetStartedClick}
+            
+            className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 flex items-center justify-center"
+          >
+            Get Started Now <FiArrowRight className="ml-2" />
+          </button>
+          <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900">
+            Contact Sales
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CTASection;

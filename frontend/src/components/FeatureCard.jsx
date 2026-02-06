@@ -1,10 +1,12 @@
-// import React from 'react'
 
-// export default function FeatureCard({title, desc}){
-//   return (
-//     <div className="p-6 bg-white rounded shadow-sm">
-//       <div className="text-xl font-semibold mb-2">{title}</div>
-//       <div className="text-gray-600">{desc}</div>
-//     </div>
-//   )
-// }
+const FeatureCard = ({ icon, title, description }) => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+      <div className="text-blue-600 text-4xl mb-4">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+};
+
+export default FeatureCard;
