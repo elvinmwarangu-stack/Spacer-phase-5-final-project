@@ -1,3 +1,4 @@
+// Bookings Slice - Manages booking records
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Mock bookings data (normalized to { date, startTime, endTime })
@@ -24,7 +25,7 @@ const initialBookings = [
     userId: 1,
     userName: 'John Client',
     userEmail: 'client@demo.com',
-      date: '2024-12-10',
+    date: '2024-12-10',
     startTime: '10:00',
     endTime: '14:00',
     totalPrice: 300,
@@ -107,7 +108,7 @@ const bookingsSlice = createSlice({
     
     // Delete booking (Admin)
     deleteBooking: (state, action) => {
-           state.bookings = state.bookings.filter(b => b.id !== action.payload);
+      state.bookings = state.bookings.filter(b => b.id !== action.payload);
     },
     
     // Select a booking
@@ -133,7 +134,8 @@ const bookingsSlice = createSlice({
       .addCase(createBooking.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || action.error.message;
-      });  }
+      });
+  }
 });
 
 // Export actions
@@ -162,8 +164,7 @@ export const selectBookingsByStatus = (status) => (state) =>
 export const selectBookingStats = (state) => {
   const bookings = state.bookings.bookings;
   return {
-
- total: bookings.length,
+    total: bookings.length,
     pending: bookings.filter(b => b.status === 'pending').length,
     confirmed: bookings.filter(b => b.status === 'confirmed').length,
     completed: bookings.filter(b => b.status === 'completed').length,
@@ -183,7 +184,4 @@ export const selectUpcomingBookings = (state) => {
 };
 
 export default bookingsSlice.reducer;
-
-
-
 
