@@ -292,6 +292,29 @@ const spacesSlice = createSlice({
     },
     
     // Select a space for viewing
+      selectSpace: (state, action) => {
+      state.selectedSpace = state.spaces.find(s => s.id === action.payload) || null;
+    },
+    
+    // Clear selected space
+    clearSelectedSpace: (state) => {
+      state.selectedSpace = null;
+    },
+    
+    // Set filters
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
+    },
+    
+    // Clear all filters
+    clearFilters: (state) => {
+      state.filters = {
+        type: '',
+        category: '',
+        priceMin: '',
+        priceMax: '',
+        location: '',
+
 
 
 
