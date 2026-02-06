@@ -400,7 +400,24 @@ export const selectFilteredSpaces = (state) => {
       break;
     case 'reviews':
       filtered.sort((a, b) => b.reviews - a.reviews);
+            break;
+    case 'featured':
+    default:
+      filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      break;
+  }
   
+  return filtered;
+};
+
+// Get unique categories
+export const selectCategories = (state) => {
+  return [...new Set(state.spaces.spaces.map(s => s.category))];
+};
+
+export default spacesSlice.reducer;
+  
+
 
 
 
