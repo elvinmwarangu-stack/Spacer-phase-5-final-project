@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar.jsx'
 import Hero from '../components/Hero.jsx'
 import FeatureCard from '../components/FeatureCard.jsx'
 import CTASection from '../components/CTASection.jsx'
 import StatsCounter from '../components/StatsCounter.jsx'
 import Footer from '../components/Footer.jsx'
+import LoginModal from '../components/LoginModal.jsx'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function HomePage() {
+  const [showLoginModal, setShowLoginModal] = useState(false)
+
   const features = [
     {title: 'Easy Discovery', desc: 'Find the perfect space by location, price, capacity, and amenities'},
     {title: 'Secure Booking', desc: 'Book with confidence with our secure payment and confirmation system'},
@@ -17,11 +22,15 @@ export default function HomePage() {
     'Coworking Spaces','Private Offices','Meeting Rooms','Conference Centers','Creative Studios','Commercial Kitchens'
   ]
 
+  const handleGetStarted = () => {
+    setShowLoginModal(true)
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar onLoginClick={handleGetStarted} />
       <main className="flex-1">
-        <Hero />
+        <Hero onGetStartedClick={handleGetStarted} />
 
         <section className="max-w-6xl mx-auto px-6 py-12">
           <h2 className="text-3xl font-semibold mb-4">Why Choose Spacer?</h2>
@@ -73,10 +82,28 @@ export default function HomePage() {
 
         <StatsCounter />
 
-        <CTASection />
+        <CTASection onGetStartedClick={handleGetStarted} />
       </main>
 
       <Footer />
+      
+      <LoginModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
+      
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   )
 }
