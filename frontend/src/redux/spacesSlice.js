@@ -388,7 +388,20 @@ export const selectFilteredSpaces = (state) => {
       s.category.toLowerCase().includes(query)
     );
   }
+    switch (sortBy) {
+    case 'price-low':
+      filtered.sort((a, b) => a.price - b.price);
+      break;
+    case 'price-high':
+      filtered.sort((a, b) => b.price - a.price);
+      break;
+    case 'rating':
+      filtered.sort((a, b) => b.rating - a.rating);
+      break;
+    case 'reviews':
+      filtered.sort((a, b) => b.reviews - a.reviews);
   
+
 
 
 
