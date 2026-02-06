@@ -4,6 +4,7 @@ import { addSpace, updateSpace, deleteSpace } from '../redux/spacesSlice';
 import { updateBookingStatus, deleteBooking } from '../redux/bookingsSlice';
 import { addUser, updateUser, deleteUser, updateUserRole } from '../redux/usersSlice';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { FiPlus, FiEdit, FiTrash, FiUsers, FiMapPin, FiDollarSign, FiCalendar } from 'react-icons/fi';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -559,6 +560,8 @@ const AdminDashboard = () => {
         pauseOnHover
         theme="light"
       />
+      
+      <Footer />
     </div>
   );
 };

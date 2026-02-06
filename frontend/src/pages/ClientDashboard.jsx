@@ -4,6 +4,7 @@ import { selectUserBookings } from '../redux/bookingsSlice';
 import SpaceCard from '../components/SpaceCard';
 import BookingModal from '../components/BookingModal';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { FiSearch, FiFilter, FiCalendar, FiMapPin, FiDollarSign, FiClock } from 'react-icons/fi';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -312,6 +313,8 @@ const ClientDashboard = () => {
         pauseOnHover
         theme="light"
       />
+      
+      <Footer />
     </div>
   );
 };
