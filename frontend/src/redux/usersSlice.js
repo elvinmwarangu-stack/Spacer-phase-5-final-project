@@ -35,5 +35,38 @@ const initialUsers = [
     role: 'client',
     phone: '+1 555-0102',
     avatar: null,
+    createdAt: '2024-02-20T14:30:00Z',
+    totalBookings: 3,
+    totalSpent: 890,
+  },
+  {
+    id: 4,
+    name: 'Mike Johnson',
+    email: 'mike@demo.com',
+    password: 'mike123',
+    role: 'client',
+    phone: '+1 555-0103',
+    avatar: null,
+    createdAt: '2024-03-10T09:15:00Z',
+    totalBookings: 8,
+    totalSpent: 4120,
+  },
+  {
+    id: 5,
+    name: 'Emily Davis',
+    email: 'emily@demo.com',
+    password: 'emily123',
+    role: 'client',
+    phone: '+1 555-0104',
+    avatar: null,
+    createdAt: '2024-04-05T16:45:00Z',
+    totalBookings: 2,
+    totalSpent: 450,
+  },
+];
+
+const initialState = {
+  users: initialUsers,
+
 
 
