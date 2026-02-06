@@ -11,8 +11,8 @@ export const store = configureStore({
     auth: authReducer,
     spaces: spacesReducer,
     bookings: bookingsReducer,
-    users: use
-},
+    users: usersReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -23,4 +23,5 @@ export const store = configureStore({
   devTools: import.meta.env.DEV, // Enable Redux DevTools in development
 });
 
-export default s
+export default store;
+
