@@ -17,3 +17,9 @@ const initialUsers = [
   },
   {
     id: 2,
+      name: 'Admin User',
+    email: 'admin@demo.com',
+    password: 'admin123',
+    role: 'admin',
+    phone: '+1 555
+
