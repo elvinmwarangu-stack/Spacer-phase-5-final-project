@@ -107,5 +107,33 @@ const bookingsSlice = createSlice({
     
     // Delete booking (Admin)
     deleteBooking: (state, action) => {
+           state.bookings = state.bookings.filter(b => b.id !== action.payload);
+    },
+    
+    // Select a booking
+    selectBooking: (state, action) => {
+      state.selectedBooking = state.bookings.find(b => b.id === action.payload) || null;
+    },
+    
+    // Clear selected booking
+    clearSelectedBooking: (state) => {
+      state.selectedBooking = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createBooking.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createBooking.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bookings.push(action.payload);
+      })
+      .addCase(createBooking.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
+      });
+
 
 
