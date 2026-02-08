@@ -34,7 +34,7 @@ export default function HomePage() {
           <Hero onGetStartedClick={handleGetStarted} />
         </section>
 
-        <section id="about" className="max-w-6xl mx-auto px-6 py-12">
+        <section id="features" className="max-w-6xl mx-auto px-6 py-12">
           <h2 className="text-3xl font-semibold mb-4">Why Choose Spacer?</h2>
           <p className="text-gray-600 mb-8">Trusted by businesses and individuals across Kenya</p>
 
@@ -56,7 +56,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 py-12">
+        <section id="how-it-works" className="max-w-6xl mx-auto px-6 py-12">
           <h3 className="text-2xl font-semibold mb-6">How It Works</h3>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
             <div className="p-6 bg-white rounded shadow text-center">
@@ -82,7 +82,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <StatsCounter />
+        <section id="about">
+          <StatsCounter />
+        </section>
 
         <CTASection onGetStartedClick={handleGetStarted} />
       </main>
