@@ -6,7 +6,7 @@ import CTASection from '../components/CTASection.jsx'
 import StatsCounter from '../components/StatsCounter.jsx'
 import Footer from '../components/Footer.jsx'
 import LoginModal from '../components/LoginModal.jsx'
-import { FiSearch, FiShield, FiClock, FiMapPin, FiUsers, FiCheckCircle, FiCalendar } from 'react-icons/fi'
+import { FiSearch, FiShield, FiClock, FiMapPin, FiUsers, FiCheckCircle, FiCalendar, FiHome } from 'react-icons/fi'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -32,7 +32,66 @@ export default function HomePage() {
   ]
 
   const spaceTypes = [
-    'Coworking Spaces','Private Offices','Meeting Rooms','Conference Centers','Creative Studios','Commercial Kitchens'
+    {
+      title: 'Coworking Spaces',
+      description: 'Shared desks & hot desks',
+      color: 'bg-blue-500'
+    },
+    {
+      title: 'Serviced Offices',
+      description: 'Turnkey private offices',
+      color: 'bg-purple-500'
+    },
+    {
+      title: 'Hybrid Offices',
+      description: 'Private + flexible spaces',
+      color: 'bg-purple-600'
+    },
+    {
+      title: 'Private Offices',
+      description: 'Dedicated team spaces',
+      color: 'bg-pink-500'
+    },
+    {
+      title: 'Class A Buildings',
+      description: 'Premium office suites',
+      color: 'bg-teal-500'
+    },
+    {
+      title: 'Creative Studios',
+      description: 'Lofts & open spaces',
+      color: 'bg-orange-500'
+    },
+    {
+      title: 'Commercial Kitchens',
+      description: 'Professional-grade kitchens',
+      color: 'bg-red-500'
+    },
+    {
+      title: 'Retail Spaces',
+      description: 'Pop-up & storefronts',
+      color: 'bg-green-500'
+    },
+    {
+      title: 'Meeting Rooms',
+      description: 'Boardrooms & huddle rooms',
+      color: 'bg-yellow-500'
+    },
+    {
+      title: 'Conference Centers',
+      description: 'Large event venues',
+      color: 'bg-cyan-500'
+    },
+    {
+      title: 'Warehouse Space',
+      description: 'Industrial & storage',
+      color: 'bg-gray-500'
+    },
+    {
+      title: 'Office Suites',
+      description: 'Multi-room spaces',
+      color: 'bg-purple-500'
+    }
   ]
 
   const handleGetStarted = () => {
@@ -64,12 +123,16 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Browse by Space Type</h3>
-              <p className="text-lg text-gray-600">Discover the perfect space for your needs</p>
+              <p className="text-lg text-gray-600">Find the perfect space for your needs</p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-              {spaceTypes.map((s) => (
-                <div key={s} className="p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center font-medium text-gray-700 hover:text-indigo-600 cursor-pointer">
-                  {s}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {spaceTypes.map((space) => (
+                <div key={space.title} className="p-6 bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
+                  <div className={`w-14 h-14 ${space.color} rounded-xl flex items-center justify-center mb-4`}>
+                    <FiHome className="text-2xl text-white" />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-gray-900">{space.title}</h4>
+                  <p className="text-gray-600">{space.description}</p>
                 </div>
               ))}
             </div>
