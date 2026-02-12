@@ -3,6 +3,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from requests import Session
 
+
 from app.auth.routes import router as auth_router
 from app.spaces.routes import get_db, router as spaces_router
 from app.bookings.routes import router as bookings_router
