@@ -13,7 +13,7 @@ app = FastAPI(title="Spacer API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://frontend-six-zeta-786mmpz7hq.vercel.app",  # ← your exact Vercel URL
+        "https://spacer-phase-5-final-project-x34l.vercel.app/",  # ← your exact Vercel URL
         "http://localhost:3000",                            # keep for local dev
         "*"                                                 # temporary wildcard for testing (remove later)
     ],
