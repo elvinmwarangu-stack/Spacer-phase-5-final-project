@@ -1,10 +1,9 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
-from sqlalchemy.orm import Session
 
-from app.database import Base, engine, get_db
-from app.database import models  # IMPORTANT: registers tables
+from app.database.base import Base
+from app.database.session import engine, get_db
 
 from app.auth.routes import router as auth_router
 from app.spaces.routes import router as spaces_router
@@ -14,18 +13,13 @@ from app.users.routes import router as users_router
 
 app = FastAPI(title="Spacer API")
 
-#  CREATE TABLES ON STARTUP
-@app.on_event("startup")
-def startup():
-    Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://spacer-phase-5-final-project-x34l.vercel.app",
         "http://localhost:3000",
-        "*"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -40,7 +34,7 @@ def root():
     }
 
 @app.get("/health")
-def health(db: Session = Depends(get_db)):
+def health(db=Depends(get_db)):
     db.execute(text("SELECT 1"))
     return {"status": "healthy", "db_connected": True}
 
