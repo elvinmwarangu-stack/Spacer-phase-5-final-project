@@ -89,6 +89,11 @@ const bookingsSlice = createSlice({
 });
 
 export const { selectBooking, clearSelectedBooking } = bookingsSlice.actions;
+
+// Clean action names for components (aliases for the API thunks)
+export const updateBookingStatus = updateBookingStatusAPI;
+export const deleteBooking = deleteBookingAPI;
+
 export const selectAllBookings = (state) => state.bookings.bookings;
 export const selectSelectedBooking = (state) => state.bookings.selectedBooking;
 export const selectUserBookings = (state, userId) => state.bookings.bookings.filter(b => b.userId === userId);
