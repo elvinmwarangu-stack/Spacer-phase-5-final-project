@@ -1,4 +1,3 @@
-import uuid
 import random
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -7,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from app.database.base import Base
 from app.database.models import User, Space, Booking, SpaceImage
 import argparse
-
 
 # =========================
 # Sample Data Pools
@@ -63,6 +61,9 @@ SPACE_IMAGES = [
     "https://images.unsplash.com/photo-1503424886307-b090341d25d1",
 ]
 
+# =========================
+# Seeder Function
+# =========================
 
 def seed_db(db_url, clear_only=False):
     print(f"Connecting to database at {db_url}...")
@@ -83,45 +84,43 @@ def seed_db(db_url, clear_only=False):
 
     try:
         # =========================
-        # Create Users
+        # Users
         # =========================
-        users = []
-
-        admin = User(
-            name="Admin User",
-            email="admin@example.com",
-            password_hash="hashed_password",
-            role="ADMIN"
-        )
-
-        client = User(
-            name="Test Client",
-            email="client@example.com",
-            password_hash="hashed_password",
-            role="CLIENT"
-        )
-
-        users.extend([admin, client])
+        users = [
+            User(
+                name="Admin User",
+                email="admin@example.com",
+                password_hash="hashed_password",
+                role="ADMIN"
+            ),
+            User(
+                name="Test Client",
+                email="client@example.com",
+                password_hash="hashed_password",
+                role="CLIENT"
+            )
+        ]
 
         for i in range(5):
-            user = User(
-                name=random.choice(NAMES),
-                email=f"user{i}@example.com",
-                password_hash="hashed_password",
-                role=random.choice(["CLIENT", "OWNER"])
+            users.append(
+                User(
+                    name=random.choice(NAMES),
+                    email=f"user{i}@example.com",
+                    password_hash="hashed_password",
+                    role=random.choice(["CLIENT", "OWNER"])
+                )
             )
-            users.append(user)
 
         session.add_all(users)
         session.commit()
         print(f"Created {len(users)} users.")
 
         # =========================
-        # Create Spaces WITH Images
+        # Spaces + Images
         # =========================
         spaces = []
 
-        for i in range(10):
+        for _ in range(10):
             space = Space(
                 title=random.choice(SPACE_TITLES),
                 description="Spacious, clean, and well-equipped workspace.",
@@ -132,15 +131,17 @@ def seed_db(db_url, clear_only=False):
             )
 
             session.add(space)
-            session.flush()  # Generates space.id
+            session.flush()  # ensures space.id exists
 
-            # Add 2–4 images per space
-            for _ in range(random.randint(2, 4)):
-                image = SpaceImage(
-                    space_id=space.id,
-                    image_url=random.choice(SPACE_IMAGES)
+            # Add 3–5 UNIQUE images per space
+            selected_images = random.sample(SPACE_IMAGES, k=random.randint(3, 5))
+            for image_url in selected_images:
+                session.add(
+                    SpaceImage(
+                        space_id=space.id,
+                        image_url=image_url
+                    )
                 )
-                session.add(image)
 
             spaces.append(space)
 
@@ -148,10 +149,10 @@ def seed_db(db_url, clear_only=False):
         print(f"Created {len(spaces)} spaces with images.")
 
         # =========================
-        # Create Bookings
+        # Bookings
         # =========================
-        bookings = []
         client_users = [u for u in users if u.role == "CLIENT"]
+        bookings = []
 
         for _ in range(10):
             user = random.choice(client_users)
@@ -160,39 +161,39 @@ def seed_db(db_url, clear_only=False):
             start_time = datetime.utcnow() + timedelta(days=random.randint(1, 30))
             end_time = start_time + timedelta(hours=random.randint(1, 8))
 
-            booking = Booking(
-                user_id=user.id,
-                space_id=space.id,
-                start_time=start_time,
-                end_time=end_time,
-                total_amount=Decimal(random.uniform(20, 500)).quantize(Decimal("0.00")),
-                status=random.choice(["PENDING", "CONFIRMED", "CANCELLED"])
+            bookings.append(
+                Booking(
+                    user_id=user.id,
+                    space_id=space.id,
+                    start_time=start_time,
+                    end_time=end_time,
+                    total_amount=Decimal(random.uniform(20, 500)).quantize(Decimal("0.00")),
+                    status=random.choice(["PENDING", "CONFIRMED", "CANCELLED"])
+                )
             )
-
-            bookings.append(booking)
 
         session.add_all(bookings)
         session.commit()
         print(f"Created {len(bookings)} bookings.")
 
-        print("Database seeded successfully!")
+        print(" Database seeded successfully!")
 
     except Exception as e:
-        print(f"Error seeding database: {e}")
         session.rollback()
+        print(f" Error seeding database: {e}")
     finally:
         session.close()
 
+# =========================
+# CLI Entry
+# =========================
 
 if __name__ == "_main_":
-    parser = argparse.ArgumentParser(description="Manage mock databases (seed/clear).")
-    parser.add_argument("--db", type=str, help="Database filename (e.g., spacer.db)")
-    parser.add_argument("--clear", action="store_true", help="Clear the database only")
+    parser = argparse.ArgumentParser(description="Seed or clear the database")
+    parser.add_argument("--db", type=str, help="Database filename (e.g. spacer.db)")
+    parser.add_argument("--clear", action="store_true", help="Clear DB only")
 
     args = parser.parse_args()
 
-    if args.db:
-        db_url = f"sqlite:///./{args.db}"
-        seed_db(db_url, clear_only=args.clear)
-    else:
-        seed_db("sqlite:///./spacer.db", clear_only=args.clear)
+    db_url = f"sqlite:///./{args.db}" if args.db else "sqlite:///./spacer.db"
+    seed_db(db_url, clear_only=args.clear)
