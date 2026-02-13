@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://spacer-phase-5-final-project-8.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://spacer-phase-5-final-project-8.onrender.com';
 
 export const fetchAPI = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`;

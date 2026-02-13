@@ -1,12 +1,10 @@
+import os
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from app.database.base import Base
 from app.database.session import engine, get_db
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
 from app.auth.routes import router as auth_router
 from app.spaces.routes import router as spaces_router
 from app.bookings.routes import router as bookings_router
@@ -17,12 +15,25 @@ app = FastAPI(title="Spacer API")
 
 Base.metadata.create_all(bind=engine)
 
+# Configure CORS origins from environment for flexibility in deployments.
+default_origins = [
+    "https://spacer-phase-5-final-project-x34l.vercel.app",
+    "http://localhost:3000",
+]
+
+# Use `ALLOWED_ORIGINS` or `FRONTEND_URL` environment variable (comma-separated)
+env_origins = os.getenv("ALLOWED_ORIGINS") or os.getenv("FRONTEND_URL")
+if env_origins:
+    try:
+        allowed_origins = [o.strip() for o in env_origins.split(",") if o.strip()]
+    except Exception:
+        allowed_origins = default_origins
+else:
+    allowed_origins = default_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://spacer-phase-5-final-project-x34l.vercel.app",
-        "http://localhost:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
